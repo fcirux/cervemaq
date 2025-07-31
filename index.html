@@ -1,11 +1,185 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CERVEMAQ - Ingeniería Cervecera</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Fabricación de maquinaria para cervecería artesanal e industrial. Equipos de calidad en Argentina.">
+  <title>CERVEMAQ - Ingeniería Cervecera | Maquinaria para Cerveza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #e67e22;
+      --secondary: #2c3e50;
+      --light: #ecf0f1;
+      --dark: #34495e;
+      --white: #ffffff;
+      --text: #333333;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--light);
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+    
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--secondary);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .imagen-principal {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 2rem 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .whatsapp {
+      display: inline-block;
+      background-color: #25D366;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 1rem 0;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .whatsapp i {
+      margin-right: 8px;
+    }
+    
+    footer {
+      background-color: var(--secondary);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    /* Botón flotante de WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 99;
+      transition: transform 0.3s;
+    }
+    
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -16,15 +190,24 @@
       <a href="contacto.html">Contacto</a>
     </nav>
   </header>
+  
   <main>
     <h1>Bienvenidos a CERVEMAQ</h1>
-    <p>Soluciones para la industria cervecera y de bebidas</p>
+    <p>Soluciones integrales para la industria cervecera y de bebidas</p>
     <img src="llenadora.jpg" alt="Llenadora de líquidos" class="imagen-principal" />
-    <a class="whatsapp" href="https://wa.me/5493546525687" target="_blank">Contactar por WhatsApp</a>
+    <a class="whatsapp" href="https://wa.me/5493546525687" target="_blank">
+      <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+    </a>
   </main>
+  
   <footer>
     <p>Villa General Belgrano, Calamuchita, Córdoba, Argentina</p>
     <p>Email: cervemaq@gmail.com</p>
   </footer>
+  
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 </body>
 </html>
