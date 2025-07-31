@@ -18,7 +18,7 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      background-color: #f8f9fa;
+      background-color: #e0e0e0; /* Fondo gris claro */
     }
     
     .header {
@@ -26,28 +26,42 @@
       text-align: center;
       z-index: 2;
       position: relative;
-      height: 120px; /* Altura fija para el encabezado */
+      background-color: rgba(224, 224, 224, 0.9); /* Gris claro semitransparente */
     }
     
     h1 {
-      color: white;
+      color: #333333; /* Texto oscuro para contraste */
       font-size: 2.5rem;
       margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     .subtitle {
-      color: white;
+      color: #444444;
       font-size: 1.2rem;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .brand {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: #333333;
+      font-size: 1.8rem;
+      z-index: 2;
+    }
+    
+    .brand span {
+      display: block;
+      font-size: 1rem;
+      margin-top: 5px;
     }
     
     .logo-container {
       position: absolute;
-      top: 120px; /* Comienza después del encabezado */
+      top: 0;
       left: 0;
       width: 100%;
-      height: calc(100% - 120px); /* Resta la altura del encabezado */
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -57,16 +71,17 @@
     .logo-fullscreen {
       width: auto;
       height: auto;
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 80%;
+      max-height: 80%;
       object-fit: contain;
+      filter: brightness(0.9) contrast(1.1);
     }
     
     .download-btn {
       position: fixed;
       top: 20px;
       right: 20px;
-      background-color: #e67e22;
+      background-color: #e67e22; /* Naranja corporativo */
       color: white;
       padding: 10px 15px;
       border-radius: 5px;
@@ -117,18 +132,18 @@
         font-size: 1rem;
       }
       
-      .header {
-        height: 100px;
-      }
-      
-      .logo-container {
-        top: 100px;
-        height: calc(100% - 100px);
+      .brand {
+        font-size: 1.5rem;
       }
       
       .download-btn {
         padding: 8px 12px;
         font-size: 0.9rem;
+      }
+      
+      .logo-fullscreen {
+        max-width: 90%;
+        max-height: 90%;
       }
     }
   </style>
@@ -146,6 +161,11 @@
   <div class="logo-container">
     <img src="logo.jpg" alt="Logo CERVEMAQ" class="logo-fullscreen">
   </div>
+  
+  <div class="brand">
+    CERVEMAQ<br>
+    <span>— INGENIERÍA CERVECERA —</span>
+  </div>
 
   <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-float">
     <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -160,7 +180,6 @@
       img.onerror = function() {
         alert('El archivo logo.jpg no se encontró. Verifica que esté en la misma carpeta y se llame exactamente "logo.jpg"');
         document.querySelector('.logo-container').style.display = 'none';
-        document.body.style.backgroundColor = '#2c3e50';
       };
     });
   </script>
