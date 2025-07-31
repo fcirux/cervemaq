@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Fabricación de maquinaria para cervecería artesanal e industrial. Equipos de calidad en Argentina.">
   <title>CERVEMAQ - Ingeniería Cervecera | Maquinaria para Cerveza</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,11 +29,14 @@
       font-family: 'Roboto', sans-serif;
       line-height: 1.6;
       color: var(--text);
-      background-color: var(--light);
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
     }
     
     header {
-      background-color: var(--white);
+      background-color: rgba(44, 62, 80, 0.9);
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       padding: 1rem 2rem;
       position: sticky;
@@ -47,6 +50,7 @@
     .logo {
       height: 60px;
       width: auto;
+      filter: brightness(0) invert(1);
     }
     
     nav {
@@ -55,7 +59,7 @@
     }
     
     nav a {
-      color: var(--secondary);
+      color: var(--white);
       text-decoration: none;
       font-weight: 500;
       font-size: 1.1rem;
@@ -83,12 +87,13 @@
     }
     
     main {
-      <div class="imagen-contenedor">
-  <img src="llenadora.jpg" alt="Llenadora de líquidos profesional" class="imagen-principal">
-  <div class="overlay">
-    <h2>Maquinaria de Precisión para Cervecerías</h2>
-  </div>
-</div>
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
     }
     
     h1 {
@@ -96,15 +101,6 @@
       color: var(--secondary);
       font-size: 2.5rem;
       margin-bottom: 1rem;
-    }
-    
-    .imagen-principal {
-      width: 100%;
-      max-height: 500px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin: 2rem 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     .whatsapp {
@@ -137,28 +133,6 @@
       margin-top: 3rem;
     }
     
-    /* Responsive */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 1rem;
-      }
-      
-      .logo {
-        margin-bottom: 1rem;
-      }
-      
-      nav {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-    }
-    
     /* Botón flotante de WhatsApp */
     .whatsapp-float {
       position: fixed;
@@ -181,6 +155,37 @@
     .whatsapp-float:hover {
       transform: scale(1.1);
     }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      main {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      
+      body {
+        background-attachment: scroll;
+      }
+    }
   </style>
 </head>
 <body>
@@ -196,7 +201,6 @@
   <main>
     <h1>Bienvenidos a CERVEMAQ</h1>
     <p>Soluciones integrales para la industria cervecera y de bebidas</p>
-    <img src="llenadora.jpg" alt="Llenadora de líquidos" class="imagen-principal" />
     <a class="whatsapp" href="https://wa.me/5493546525687" target="_blank">
       <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
     </a>
