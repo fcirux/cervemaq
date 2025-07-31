@@ -18,27 +18,44 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      background-color: #f8f9fa; /* Fondo de respaldo */
+      background-color: #f8f9fa;
     }
     
     .header {
-      background-color: rgba(255, 255, 255, 0.9);
       padding: 20px;
       text-align: center;
       z-index: 2;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       position: relative;
     }
     
     h1 {
-      color: #2c3e50;
+      color: white;
       font-size: 2.5rem;
       margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
     
     .subtitle {
-      color: #34495e;
+      color: white;
       font-size: 1.2rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .brand {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+    
+    .brand span {
+      display: block;
+      font-size: 1rem;
+      margin-top: 5px;
     }
     
     .logo-container {
@@ -59,6 +76,26 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+    }
+    
+    .download-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #e67e22;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 3;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    
+    .download-btn:hover {
+      background-color: #d35400;
+      transform: translateY(-2px);
     }
     
     .whatsapp-float {
@@ -96,14 +133,13 @@
         font-size: 1rem;
       }
       
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
+      .brand {
+        font-size: 1.5rem;
       }
       
-      .whatsapp-icon {
-        width: 25px;
-        height: 25px;
+      .download-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -114,8 +150,17 @@
     <p class="subtitle">Ingeniería especializada en maquinaria cervecera</p>
   </header>
   
+  <a href="manual.pdf" class="download-btn" download>
+    Descarga de manual
+  </a>
+  
   <div class="logo-container">
     <img src="logo.jpg" alt="Logo CERVEMAQ" class="logo-fullscreen">
+  </div>
+  
+  <div class="brand">
+    CERVEMAQ<br>
+    <span>— INGENIERÍA CERVECERA —</span>
   </div>
 
   <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-float">
@@ -131,6 +176,7 @@
       img.onerror = function() {
         alert('El archivo logo.jpg no se encontró. Verifica que esté en la misma carpeta y se llame exactamente "logo.jpg"');
         document.querySelector('.logo-container').style.display = 'none';
+        document.body.style.backgroundColor = '#2c3e50';
       };
     });
   </script>
