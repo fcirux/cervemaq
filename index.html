@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Fabricación de maquinaria para cervecería artesanal e industrial. Equipos de calidad en Argentina.">
-  <title>CERVEMAQ - Ingeniería Cervecera | Maquinaria para Cerveza</title>
+  <title>CERVEMAQ - Ingeniería Cervecera</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
       --primary: #e67e22;
       --secondary: #2c3e50;
       --light: #ecf0f1;
-      --dark: #34495e;
       --white: #ffffff;
-      --text: #333333;
     }
     
     * {
@@ -27,55 +24,57 @@
     
     body {
       font-family: 'Roboto', sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background: 
-        /* Overlay semi-transparente */
-        linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
-        /* Logo como fondo */
-        url('Logo.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #f5f5f5;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
     
-    .welcome-container {
+    .logo-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('Logo.jpg') no-repeat center center;
+      background-size: contain;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
-      padding-top: 10vh;
       text-align: center;
+      padding: 2rem;
     }
     
     .welcome-title {
       font-family: 'Montserrat', sans-serif;
-      color: var(--secondary);
       font-size: 3.5rem;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      color: var(--secondary);
+      margin-bottom: 1rem;
       background-color: rgba(255,255,255,0.8);
       padding: 1rem 2rem;
       border-radius: 8px;
-      margin-bottom: 1rem;
     }
     
     .welcome-subtitle {
       font-size: 1.5rem;
+      color: var(--secondary);
       background-color: rgba(255,255,255,0.8);
       padding: 0.8rem 1.5rem;
       border-radius: 8px;
       max-width: 80%;
     }
     
-    /* Eliminamos el header original */
-    header {
-      display: none;
-    }
-    
-    /* Botón flotante de WhatsApp mejorado */
     .whatsapp-float {
       position: fixed;
       bottom: 30px;
@@ -90,17 +89,14 @@
       justify-content: center;
       font-size: 2rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      z-index: 99;
+      z-index: 100;
       transition: all 0.3s;
-      text-decoration: none;
     }
     
     .whatsapp-float:hover {
-      transform: scale(1.1) rotate(10deg);
-      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+      transform: scale(1.1);
     }
     
-    /* Responsive */
     @media (max-width: 768px) {
       .welcome-title {
         font-size: 2.5rem;
@@ -109,10 +105,6 @@
       
       .welcome-subtitle {
         font-size: 1.2rem;
-      }
-      
-      body {
-        background-attachment: scroll;
       }
       
       .whatsapp-float {
@@ -124,12 +116,13 @@
   </style>
 </head>
 <body>
-  <div class="welcome-container">
+  <div class="logo-background"></div>
+  
+  <div class="content">
     <h1 class="welcome-title">BIENVENIDOS A CERVEMAQ</h1>
     <p class="welcome-subtitle">Ingeniería especializada en maquinaria cervecera</p>
   </div>
   
-  <!-- Botón flotante de WhatsApp -->
   <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-float">
     <i class="fab fa-whatsapp"></i>
   </a>
