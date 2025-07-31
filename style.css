@@ -56,3 +56,41 @@ ul#lista-productos li {
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
+
+.imagen-contenedor {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.imagen-principal {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s;
+}
+
+.imagen-principal:hover {
+  transform: scale(1.03);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  padding: 2rem;
+  color: white;
+  text-align: left;
+}
+
+.overlay h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
