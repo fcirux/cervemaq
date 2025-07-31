@@ -4,135 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CERVEMAQ - Ingeniería Cervecera</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    :root {
-      --primary: #e67e22;
-      --secondary: #2c3e50;
-      --white: #ffffff;
-    }
-    
-    * {
+    body {
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Roboto', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      background-color: #f8f8f8;
-    }
-    
-    .logo-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 0;
-    }
-    
-    .logo-container img {
-      max-width: 60%;
-      max-height: 60%;
-      opacity: 0.4;
-      filter: grayscale(30%);
-    }
-    
-    .content {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
+      background-color: #f8f9fa;
       text-align: center;
-      padding: 2rem;
+      position: relative;
     }
-    
-    .welcome-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 4rem;
-      color: var(--secondary);
-      margin-bottom: 1.5rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+
+    .logo-container {
+      margin-bottom: 30px;
     }
-    
-    .welcome-subtitle {
-      font-size: 1.8rem;
-      color: var(--secondary);
-      max-width: 800px;
-      line-height: 1.4;
+
+    .logo-container img {
+      max-width: 300px;
+      max-height: 200px;
+      border: 2px solid #e67e22;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    
+
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    p {
+      color: #34495e;
+      font-size: 1.2rem;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
     .whatsapp-float {
       position: fixed;
       bottom: 30px;
       right: 30px;
       background-color: #25D366;
       color: white;
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      z-index: 100;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-decoration: none;
       transition: all 0.3s;
     }
-    
+
     .whatsapp-float:hover {
       transform: scale(1.1);
       background-color: #128C7E;
     }
-    
+
     @media (max-width: 768px) {
       .logo-container img {
-        max-width: 80%;
-        max-height: 80%;
+        max-width: 200px;
       }
       
-      .welcome-title {
-        font-size: 2.5rem;
+      h1 {
+        font-size: 2rem;
       }
       
-      .welcome-subtitle {
-        font-size: 1.3rem;
-      }
-      
-      .whatsapp-float {
-        width: 60px;
-        height: 60px;
-        font-size: 1.8rem;
+      p {
+        font-size: 1rem;
+        padding: 0 20px;
       }
     }
   </style>
 </head>
 <body>
   <div class="logo-container">
-    <img src="Logo.jpg" alt="Logo CERVEMAQ">
+    <img src="logo.jpg" alt="Logo de CERVEMAQ" onerror="this.style.display='none'">
   </div>
   
-  <div class="content">
-    <h1 class="welcome-title">BIENVENIDOS A CERVEMAQ</h1>
-    <p class="welcome-subtitle">Ingeniería especializada en maquinaria cervecera</p>
-  </div>
-  
+  <h1>BIENVENIDOS A CERVEMAQ</h1>
+  <p>Ingeniería especializada en maquinaria cervecera</p>
+
   <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="30" height="30" fill="white">
+      <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L4 908.1c-3.5 9.4-.8 19.9 7 26.4l68.6 48.6c7.8 5.5 19.1 4.2 25.6-3.4l66-90.9c34.9 18 74.6 27.1 114.7 27.1 122.4 0 222-99.6 222-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 95.3 93-65.5-4.4-6.9c-16.5-25.8-25.6-55.3-25.6-86 0-105.9 86-192 192-192 51.3 0 100.6 20.1 137.7 55.8 35.2 35.3 55.8 83.4 55.8 136.2 0 105.9-86 192-192 192z"/>
+    </svg>
   </a>
+
+  <script>
+    // Verificación de que la imagen existe
+    document.addEventListener('DOMContentLoaded', function() {
+      const img = document.querySelector('.logo-container img');
+      img.onerror = function() {
+        alert('El archivo logo.jpg no se encontró. Verifica que esté en la misma carpeta y se llame exactamente "logo.jpg"');
+        img.style.display = 'none';
+      };
+    });
+  </script>
 </body>
 </html>
+
+
+
+
+
