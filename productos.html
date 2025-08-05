@@ -1,33 +1,172 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Productos - CERVEMAQ</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="buscador.js"></script>
+  <style>
+    :root {
+      --primary: #e67e22;
+      --secondary: #2c3e50;
+      --light: #ecf0f1;
+      --dark: #34495e;
+      --white: #ffffff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    
+    header {
+      background-color: var(--secondary);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 50px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    nav a:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    h1 {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 2.2rem;
+    }
+    
+    #buscador {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    #lista-productos {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    #lista-productos li {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-left: 4px solid var(--primary);
+    }
+    
+    #lista-productos li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      #lista-productos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Logo Cervemaq" class="logo" />
+    <img src="logo.jpg" alt="Logo Cervemaq" class="logo">
     <nav>
       <a href="index.html">Inicio</a>
       <a href="productos.html">Productos</a>
       <a href="contacto.html">Contacto</a>
     </nav>
   </header>
+  
   <main>
-    <h1>Productos</h1>
-    <input type="text" id="buscador" placeholder="Buscar productos..." />
+    <h1>Nuestros Productos</h1>
+    <input type="text" id="buscador" placeholder="Buscar productos...">
     <ul id="lista-productos">
       <li>Llenadora automática de líquidos</li>
-      <li>Tapadoras</li>
-      <li>Bombas sanitarias</li>
-      <li>Mangueras para bebidas</li>
+      <li>Tapadoras industriales</li>
+      <li>Bombas sanitarias de alta presión</li>
+      <li>Mangueras para bebidas grado alimenticio</li>
       <li>Tanques de acero inoxidable</li>
       <li>Repuestos para líneas de embotellado</li>
+      <li>Fermentadores cerveceros</li>
+      <li>Máquinas etiquetadoras</li>
+      <li>Sistemas de filtración</li>
+      <li>Equipos de pasteurización</li>
     </ul>
   </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buscador = document.getElementById('buscador');
+      const productos = document.getElementById('lista-productos').getElementsByTagName('li');
+      
+      buscador.addEventListener('input', function() {
+        const termino = this.value.toLowerCase();
+        
+        Array.from(productos).forEach(function(producto) {
+          const textoProducto = producto.textContent.toLowerCase();
+          if (textoProducto.includes(termino)) {
+            producto.style.display = 'block';
+          } else {
+            producto.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
