@@ -288,7 +288,7 @@
     <input type="text" id="buscador" placeholder="Buscar productos...">
     <ul id="lista-productos">
       <li class="product-card" data-id="1" data-category="llenado">
-        <img src="llenadora.jpg" alt="Llenadora automática" class="product-image">
+        <img src="images/llenadora.jpg" alt="Llenadora automática" class="product-image">
         <div class="product-info">
           <h3 class="product-title">Llenadora automática</h3>
           <p class="product-price">$185,000</p>
@@ -297,7 +297,7 @@
       </li>
       
       <li class="product-card" data-id="2" data-category="fermentacion">
-        <img src="Fermentador-100-Lts.jpg" alt="Fermentador" class="product-image">
+        <img src="images/fermentador.jpg" alt="Fermentador" class="product-image">
         <div class="product-info">
           <h3 class="product-title">Fermentador 100L</h3>
           <p class="product-price">$120,000</p>
@@ -306,7 +306,7 @@
       </li>
       
       <li class="product-card" data-id="3" data-category="filtracion">
-        <img src="Filtro.jpg" alt="Sistema de filtración" class="product-image">
+        <img src="images/filtro.jpg" alt="Sistema de filtración" class="product-image">
         <div class="product-info">
           <h3 class="product-title">Filtro de placas</h3>
           <p class="product-price">$95,000</p>
@@ -424,20 +424,28 @@
         });
       });
     }
-// Finalizar compra
-document.querySelector('.checkout-btn').addEventListener('click', () => {
-  if (cart.length === 0) {
-    alert('El carrito está vacío');
-    return;
-  }
-  alert(`Compra realizada por $${totalPriceElement.textContent}\nGracias por su compra!`);
-  cart.length = 0;
-  updateCart();
-  cartPanel.classList.remove('open');
-  cartOverlay.classList.remove('active');
-});
 
+    // Finalizar compra
+    document.querySelector('.checkout-btn').addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('El carrito está vacío');
+        return;
+      }
+      alert(`Compra realizada por $${totalPriceElement.textContent}\nGracias por su compra!`);
+      cart.length = 0;
+      updateCart();
+      cartPanel.classList.remove('open');
+      cartOverlay.classList.remove('active');
+    });
 
-
+    // Función de búsqueda
+    document.getElementById('buscador').addEventListener('input', function() {
+      const term = this.value.toLowerCase();
+      document.querySelectorAll('#lista-productos .product-card').forEach(product => {
+        const name = product.querySelector('.product-title').textContent.toLowerCase();
+        product.style.display = name.includes(term) ? 'block' : 'none';
+      });
+    });
+  </script>
 </body>
 </html>
