@@ -1,14 +1,175 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Mantén el head como estaba -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos - CERVEMAQ</title>
   <style>
-    /* Agrega estos nuevos estilos */
+    :root {
+      --primary: #e67e22;
+      --secondary: #2c3e50;
+      --light: #ecf0f1;
+      --dark: #34495e;
+      --white: #ffffff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    
+    header {
+      background-color: var(--secondary);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      height: 50px;
+    }
+    
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    
+    nav a:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    .cart-icon {
+      color: white;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    h1 {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 2.2rem;
+    }
+    
+    #buscador {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    #lista-productos {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .product-card {
+      background-color: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+    }
+    
+    .product-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--secondary);
+    }
+    
+    .product-price {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .add-to-cart {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+    
+    .add-to-cart:hover {
+      background-color: #d35400;
+    }
+
+    /* Estilos del carrito */
     .cart-panel {
       position: fixed;
       top: 0;
       right: -400px;
-      width: 400px;
+      width: 90%;
+      max-width: 400px;
       height: 100vh;
       background: white;
       box-shadow: -2px 0 10px rgba(0,0,0,0.1);
@@ -51,6 +212,10 @@
       margin-right: 15px;
     }
     
+    .cart-item-info {
+      flex: 1;
+    }
+    
     .cart-total {
       font-weight: bold;
       font-size: 1.2rem;
@@ -66,16 +231,96 @@
       width: 100%;
       margin-top: 20px;
       cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      #lista-productos {
+        grid-template-columns: 1fr;
+      }
+      
+      .cart-panel {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Mantén tu header y main como estaban -->
+  <header>
+    <img src="logo.jpg" alt="Logo Cervemaq" class="logo">
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="productos.html">Productos</a>
+      <a href="contacto.html">Contacto</a>
+      <div class="cart-icon">
+        🛒
+        <span class="cart-count">0</span>
+      </div>
+    </nav>
+  </header>
+  
+  <main>
+    <h1>Nuestros Productos</h1>
+    <input type="text" id="buscador" placeholder="Buscar productos...">
+    <ul id="lista-productos">
+      <li class="product-card" data-id="1" data-category="llenado">
+        <img src="images/llenadora.jpg" alt="Llenadora automática" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">Llenadora automática</h3>
+          <p class="product-price">$185,000</p>
+          <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+      </li>
+      
+      <li class="product-card" data-id="2" data-category="fermentacion">
+        <img src="images/fermentador.jpg" alt="Fermentador" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">Fermentador 100L</h3>
+          <p class="product-price">$120,000</p>
+          <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+      </li>
+      
+      <li class="product-card" data-id="3" data-category="filtracion">
+        <img src="images/filtro.jpg" alt="Sistema de filtración" class="product-image">
+        <div class="product-info">
+          <h3 class="product-title">Filtro de placas</h3>
+          <p class="product-price">$95,000</p>
+          <button class="add-to-cart">Agregar al carrito</button>
+        </div>
+      </li>
+    </ul>
+  </main>
 
-  <!-- Agrega esto al final del body -->
+  <!-- Panel del carrito -->
   <div class="cart-overlay"></div>
   
   <div class="cart-panel">
+    <button class="close-cart">×</button>
     <h2>Tu Carrito</h2>
     <div class="cart-items-container">
       <!-- Los productos se agregarán aquí dinámicamente -->
@@ -94,11 +339,17 @@
     const cartItemsContainer = document.querySelector('.cart-items-container');
     const totalPriceElement = document.getElementById('total-price');
     const cartIcon = document.querySelector('.cart-icon');
+    const closeCartBtn = document.querySelector('.close-cart');
 
     // Abrir/cerrar carrito
     cartIcon.addEventListener('click', () => {
-      cartPanel.classList.toggle('open');
-      cartOverlay.classList.toggle('active');
+      cartPanel.classList.add('open');
+      cartOverlay.classList.add('active');
+    });
+
+    closeCartBtn.addEventListener('click', () => {
+      cartPanel.classList.remove('open');
+      cartOverlay.classList.remove('active');
     });
 
     cartOverlay.addEventListener('click', () => {
@@ -111,9 +362,9 @@
       button.addEventListener('click', function() {
         const productCard = this.closest('.product-card');
         const product = {
-          id: productCard.dataset.id || Date.now(),
+          id: productCard.dataset.id,
           name: productCard.querySelector('.product-title').textContent,
-          price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$','').replace('.','')),
+          price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$','').replace(',','')),
           image: productCard.querySelector('img').src,
           quantity: 1
         };
@@ -148,7 +399,7 @@
         cartItemElement.className = 'cart-item';
         cartItemElement.innerHTML = `
           <img src="${item.image}" alt="${item.name}">
-          <div>
+          <div class="cart-item-info">
             <h4>${item.name}</h4>
             <p>$${item.price.toLocaleString()} x ${item.quantity}</p>
             <p>Subtotal: $${(item.price * item.quantity).toLocaleString()}</p>
@@ -185,6 +436,15 @@
       updateCart();
       cartPanel.classList.remove('open');
       cartOverlay.classList.remove('active');
+    });
+
+    // Función de búsqueda
+    document.getElementById('buscador').addEventListener('input', function() {
+      const term = this.value.toLowerCase();
+      document.querySelectorAll('#lista-productos .product-card').forEach(product => {
+        const name = product.querySelector('.product-title').textContent.toLowerCase();
+        product.style.display = name.includes(term) ? 'block' : 'none';
+      });
     });
   </script>
 </body>
