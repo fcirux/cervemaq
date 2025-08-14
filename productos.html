@@ -425,27 +425,30 @@
       });
     }
 
-    // Finalizar compra
-    document.querySelector('.checkout-btn').addEventListener('click', () => {
-      if (cart.length === 0) {
-        alert('El carrito está vacío');
-        return;
-      }
-      alert(`Compra realizada por $${totalPriceElement.textContent}\nGracias por su compra!`);
-      cart.length = 0;
-      updateCart();
-      cartPanel.classList.remove('open');
-      cartOverlay.classList.remove('active');
-    });
 
-    // Función de búsqueda
-    document.getElementById('buscador').addEventListener('input', function() {
-      const term = this.value.toLowerCase();
-      document.querySelectorAll('#lista-productos .product-card').forEach(product => {
-        const name = product.querySelector('.product-title').textContent.toLowerCase();
-        product.style.display = name.includes(term) ? 'block' : 'none';
-      });
-    });
-  </script>
+
+// Finalizar compra - Versión WhatsApp
+document.querySelector('.checkout-btn').addEventListener('click', () => {
+  if (cart.length === 0) {
+    alert('El carrito está vacío');
+    return;
+  }
+  
+  // Generar mensaje con los productos
+  let message = "¡Hola CERVEMAQ! Quiero realizar la siguiente compra:\n\n";
+  cart.forEach(item => {
+    message += `- ${item.name} (${item.quantity} x $${item.price.toLocaleString()})\n`;
+  });
+  message += `\nTotal: $${totalPriceElement.textContent}\n\nMis datos de contacto son:\nNombre: [COMPLETAR]\nTeléfono: [COMPLETAR]\nDirección: [COMPLETAR si es envío]`;
+  
+  // Redirigir a WhatsApp con el mensaje
+  window.open(`https://wa.me/5493546525687?text=${encodeURIComponent(message)}`, '_blank');
+  
+  // Limpiar carrito
+  cart.length = 0;
+  updateCart();
+  cartPanel.classList.remove('open');
+  cartOverlay.classList.remove('active');
+});
 </body>
 </html>
