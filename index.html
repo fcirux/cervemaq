@@ -8,8 +8,6 @@
     :root {
       --primary: #e67e22;
       --secondary: #2c3e50;
-      --light: #ecf0f1;
-      --dark: #34495e;
       --white: #ffffff;
     }
     
@@ -21,22 +19,19 @@
     
     body {
       font-family: 'Arial', sans-serif;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      overflow: hidden;
       background-color: #e0e0e0;
+      position: relative;
     }
     
     header {
-      background-color: var(--secondary);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      z-index: 10;
+      padding: 20px 15px 15px;
+      text-align: center;
+      background-color: rgba(224, 224, 224, 0.97);
+      position: relative;
+      z-index: 2;
     }
     
     .logo {
@@ -46,29 +41,28 @@
     
     nav {
       display: flex;
+      justify-content: center;
       gap: 1.5rem;
-      align-items: center;
+      margin-top: 1rem;
     }
     
     nav a {
-      color: var(--white);
+      color: #333;
       text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
+      font-weight: bold;
+      padding: 5px 10px;
       border-radius: 4px;
-      transition: all 0.3s;
+      transition: background-color 0.3s;
     }
     
     nav a:hover {
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(0,0,0,0.1);
     }
     
     .contact-icon {
-      color: white;
-      font-size: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 5px;
     }
     
     .welcome-container {
@@ -88,8 +82,8 @@
       color: var(--secondary);
       font-size: 3.5rem;
       font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
       margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }
     
     .welcome-subtitle {
@@ -151,12 +145,9 @@
         font-size: 1.2rem;
       }
       
-      header {
-        padding: 1rem;
-      }
-      
       nav {
-        gap: 1rem;
+        flex-wrap: wrap;
+        gap: 0.8rem;
       }
       
       .contact-icon span {
@@ -177,7 +168,8 @@
     <nav>
       <a href="productos.html">Productos</a>
       <a href="contacto.html" class="contact-icon">
-        📧 <span>Contacto</span>
+        <span>📧</span>
+        <span>Contacto</span>
       </a>
     </nav>
   </header>
