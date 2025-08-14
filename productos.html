@@ -1,365 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Productos - CERVEMAQ</title>
+  <!-- Mantén el head como estaba -->
   <style>
-    :root {
-      --primary: #e67e22;
-      --secondary: #2c3e50;
-      --light: #ecf0f1;
-      --dark: #34495e;
-      --white: #ffffff;
+    /* Agrega estos nuevos estilos */
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      transition: right 0.3s;
+      z-index: 100;
+      padding: 20px;
+      overflow-y: auto;
     }
     
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .cart-panel.open {
+      right: 0;
     }
     
-    body {
-      font-family: 'Roboto', sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background-color: #f9f9f9;
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+      display: none;
     }
     
-    header {
-      background-color: var(--secondary);
-      padding: 1rem 2rem;
+    .cart-overlay.active {
+      display: block;
+    }
+    
+    .cart-item {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    
-    .logo {
-      height: 50px;
-    }
-    
-    nav {
-      display: flex;
-      gap: 1.5rem;
-    }
-    
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: all 0.3s;
-    }
-    
-    nav a:hover {
-      background-color: rgba(255,255,255,0.1);
-    }
-    
-    .cart-icon {
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      position: relative;
-    }
-    
-    .cart-count {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background-color: var(--primary);
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-    }
-    
-    main {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-    }
-    
-    h1 {
-      color: var(--secondary);
-      margin-bottom: 1.5rem;
-      text-align: center;
-      font-size: 2.2rem;
-    }
-    
-    .search-container {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    
-    #buscador {
-      flex: 1;
-      padding: 0.8rem 1rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    
-    .category-filter {
-      padding: 0.8rem 1rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-      background-color: white;
-    }
-    
-    #lista-productos {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .product-card {
-      background-color: var(--white);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .product-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
+      margin-bottom: 15px;
       border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
     }
     
-    .product-info {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 15px;
     }
     
-    .product-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: var(--secondary);
-    }
-    
-    .product-description {
-      color: #666;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-      flex: 1;
-    }
-    
-    .product-price {
+    .cart-total {
       font-weight: bold;
-      color: var(--primary);
       font-size: 1.2rem;
-      margin-bottom: 1rem;
+      margin-top: 20px;
+      text-align: right;
     }
     
-    .add-to-cart {
-      background-color: var(--primary);
+    .checkout-btn {
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 0.7rem 1rem;
-      border-radius: 4px;
+      padding: 10px 15px;
+      width: 100%;
+      margin-top: 20px;
       cursor: pointer;
-      font-weight: 500;
-      transition: background-color 0.3s;
-    }
-    
-    .add-to-cart:hover {
-      background-color: #d35400;
-    }
-    
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 1rem;
-      }
-      
-      .logo {
-        margin-bottom: 1rem;
-      }
-      
-      nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 1rem;
-      }
-      
-      .search-container {
-        flex-direction: column;
-      }
-      
-      #lista-productos {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.jpg" alt="Logo Cervemaq" class="logo">
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="productos.html">Productos</a>
-      <a href="contacto.html">Contacto</a>
-      <div class="cart-icon">
-        🛒
-        <span class="cart-count">0</span>
-      </div>
-    </nav>
-  </header>
+  <!-- Mantén tu header y main como estaban -->
+
+  <!-- Agrega esto al final del body -->
+  <div class="cart-overlay"></div>
   
-  <main>
-    <h1>Nuestros Productos</h1>
-    
-    <div class="search-container">
-      <input type="text" id="buscador" placeholder="Buscar productos...">
-      <select class="category-filter">
-        <option value="all">Todas las categorías</option>
-        <option value="llenado">Equipos de llenado</option>
-        <option value="fermentacion">Fermentación</option>
-        <option value="filtracion">Filtración</option>
-        <option value="accesorios">Accesorios</option>
-      </select>
+  <div class="cart-panel">
+    <h2>Tu Carrito</h2>
+    <div class="cart-items-container">
+      <!-- Los productos se agregarán aquí dinámicamente -->
     </div>
-    
-    <ul id="lista-productos">
-      <li class="product-card" data-category="llenado">
-        <img src="llenadora.jpg" alt="Llenadora automática" class="product-image">
-        <div class="product-info">
-          <h3 class="product-title">Llenadora automática</h3>
-          <p class="product-description">Llenadora automática de 12 válvulas para botellas de 330ml a 1L</p>
-          <span class="product-price">$185,000</span>
-          <button class="add-to-cart">Agregar al carrito</button>
-        </div>
-      </li>
-      
-      <li class="product-card" data-category="fermentacion">
-        <img src="fermentador.jpg" alt="Fermentador" class="product-image">
-        <div class="product-info">
-          <h3 class="product-title">Fermentador 100L</h3>
-          <p class="product-description">Tanque de fermentación de acero inoxidable con control de temperatura</p>
-          <span class="product-price">$120,000</span>
-          <button class="add-to-cart">Agregar al carrito</button>
-        </div>
-      </li>
-      
-      <li class="product-card" data-category="filtracion">
-        <img src="filtro.jpg" alt="Sistema de filtración" class="product-image">
-        <div class="product-info">
-          <h3 class="product-title">Filtro de placas</h3>
-          <p class="product-description">Sistema de filtración profesional con 10 placas filtrantes</p>
-          <span class="product-price">$95,000</span>
-          <button class="add-to-cart">Agregar al carrito</button>
-        </div>
-      </li>
-      
-      <li class="product-card" data-category="accesorios">
-        <img src="bombas.jpg" alt="Bombas sanitarias" class="product-image">
-        <div class="product-info">
-          <h3 class="product-title">Bombas sanitarias</h3>
-          <p class="product-description">Bombas de trasvase para líquidos con certificación alimentaria</p>
-          <span class="product-price">$45,000</span>
-          <button class="add-to-cart">Agregar al carrito</button>
-        </div>
-      </li>
-      
-      <li class="product-card" data-category="llenado">
-        <img src="tapadora.jpg" alt="Tapadora" class="product-image">
-        <div class="product-info">
-          <h3 class="product-title">Tapadora neumática</h3>
-          <p class="product-description">Tapadora automática para tapas corona y twist-off</p>
-          <span class="product-price">$78,000</span>
-          <button class="add-to-cart">Agregar al carrito</button>
-        </div>
-      </li>
-      
-      <li class="product-card" data-category="accesorios">
-        <img src="mangueras.jpg" alt="Mangueras" class="product-image">
-        <div class="product-info">
-          <h3 class="product-title">Mangueras alimentarias</h3>
-          <p class="product-description">Kit de mangueras para bebidas con conexiones sanitarias</p>
-          <span class="product-price">$32,000</span>
-          <button class="add-to-cart">Agregar al carrito</button>
-        </div>
-      </li>
-    </ul>
-  </main>
+    <div class="cart-total">
+      Total: $<span id="total-price">0</span>
+    </div>
+    <button class="checkout-btn">Finalizar Compra</button>
+  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Variables
-      const buscador = document.getElementById('buscador');
-      const categoryFilter = document.querySelector('.category-filter');
-      const productos = document.getElementById('lista-productos').children;
-      const cartCount = document.querySelector('.cart-count');
-      let cartItems = 0;
-      
-      // Función de búsqueda
-      function filtrarProductos() {
-        const termino = buscador.value.toLowerCase();
-        const categoria = categoryFilter.value;
+    // Carrito de compras
+    const cart = [];
+    const cartPanel = document.querySelector('.cart-panel');
+    const cartOverlay = document.querySelector('.cart-overlay');
+    const cartItemsContainer = document.querySelector('.cart-items-container');
+    const totalPriceElement = document.getElementById('total-price');
+    const cartIcon = document.querySelector('.cart-icon');
+
+    // Abrir/cerrar carrito
+    cartIcon.addEventListener('click', () => {
+      cartPanel.classList.toggle('open');
+      cartOverlay.classList.toggle('active');
+    });
+
+    cartOverlay.addEventListener('click', () => {
+      cartPanel.classList.remove('open');
+      cartOverlay.classList.remove('active');
+    });
+
+    // Función para agregar productos
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function() {
+        const productCard = this.closest('.product-card');
+        const product = {
+          id: productCard.dataset.id || Date.now(),
+          name: productCard.querySelector('.product-title').textContent,
+          price: parseFloat(productCard.querySelector('.product-price').textContent.replace('$','').replace('.','')),
+          image: productCard.querySelector('img').src,
+          quantity: 1
+        };
+
+        // Verificar si el producto ya está en el carrito
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push(product);
+        }
+
+        updateCart();
         
-        Array.from(productos).forEach(function(producto) {
-          const textoProducto = producto.textContent.toLowerCase();
-          const productCategory = producto.dataset.category;
-          
-          const coincideTexto = textoProducto.includes(termino);
-          const coincideCategoria = categoria === 'all' || productCategory === categoria;
-          
-          if (coincideTexto && coincideCategoria) {
-            producto.style.display = 'block';
-          } else {
-            producto.style.display = 'none';
+        // Animación de confirmación
+        this.textContent = '✓ Agregado';
+        setTimeout(() => {
+          this.textContent = 'Agregar al carrito';
+        }, 1000);
+      });
+    });
+
+    // Actualizar el carrito
+    function updateCart() {
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        
+        const cartItemElement = document.createElement('div');
+        cartItemElement.className = 'cart-item';
+        cartItemElement.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div>
+            <h4>${item.name}</h4>
+            <p>$${item.price.toLocaleString()} x ${item.quantity}</p>
+            <p>Subtotal: $${(item.price * item.quantity).toLocaleString()}</p>
+            <button class="remove-item" data-id="${item.id}">Eliminar</button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(cartItemElement);
+      });
+
+      totalPriceElement.textContent = total.toLocaleString();
+      document.querySelector('.cart-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      // Agregar eventos a los botones de eliminar
+      document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+          const itemId = this.dataset.id;
+          const itemIndex = cart.findIndex(item => item.id === itemId);
+          if (itemIndex !== -1) {
+            cart.splice(itemIndex, 1);
+            updateCart();
           }
         });
+      });
+    }
+
+    // Finalizar compra
+    document.querySelector('.checkout-btn').addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('El carrito está vacío');
+        return;
       }
-      
-      // Eventos
-      buscador.addEventListener('input', filtrarProductos);
-      categoryFilter.addEventListener('change', filtrarProductos);
-      
-      // Carrito de compras
-      const addToCartButtons = document.querySelectorAll('.add-to-cart');
-      
-      addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          cartItems++;
-          cartCount.textContent = cartItems;
-          
-          // Animación
-          button.textContent = '✓ Agregado';
-          button.style.backgroundColor = '#2ecc71';
-          
-          setTimeout(() => {
-            button.textContent = 'Agregar al carrito';
-            button.style.backgroundColor = '';
-          }, 1000);
-        });
-      });
-      
-      // Icono del carrito
-      document.querySelector('.cart-icon').addEventListener('click', function() {
-        alert(`Tienes ${cartItems} productos en el carrito`);
-      });
+      alert(`Compra realizada por $${totalPriceElement.textContent}\nGracias por su compra!`);
+      cart.length = 0;
+      updateCart();
+      cartPanel.classList.remove('open');
+      cartOverlay.classList.remove('active');
     });
   </script>
 </body>
