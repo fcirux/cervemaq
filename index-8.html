@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CERVEMAQ — Ingeniería Cervecera</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel-dark: #1a1c1e;
+    --steel-mid: #2c2f33;
+    --steel-light: #3d4147;
+    --steel-shine: #8a9099;
+    --steel-highlight: #c8cdd4;
+    --amber: #d4820a;
+    --amber-light: #f0a020;
+    --amber-pale: #f7c86a;
+    --cream: #f2ead8;
+    --rust: #8b3a0f;
+    --foam: #f5f0e8;
+    --text-primary: #e8e4dc;
+    --text-secondary: #9a9590;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--steel-dark);
+    color: var(--text-primary);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%231a1c1e'/%3E%3Crect x='0' y='0' width='1' height='1' fill='%23222426' opacity='0.6'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23222426' opacity='0.6'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(180deg, rgba(17,18,20,0.97) 0%, rgba(17,18,20,0.85) 100%);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 130, 10, 0.3);
+    padding: 0 2.5rem;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 60%, var(--amber-pale) 100%);
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    color: var(--steel-dark);
+    letter-spacing: 0.5px;
+  }
+
+  .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    color: var(--amber);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  nav a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--amber-light); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cart-btn {
+    background: none;
+    border: 1px solid rgba(212,130,10,0.4);
+    color: var(--text-primary);
+    padding: 0.45rem 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .cart-btn:hover {
+    border-color: var(--amber);
+    color: var(--amber-light);
+  }
+
+  .cart-count {
+    background: var(--amber);
+    color: var(--steel-dark);
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .whatsapp-btn {
+    background: linear-gradient(135deg, #25d366, #1da851);
+    color: white;
+    padding: 0.5rem 1.1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 12px rgba(37,211,102,0.25);
+  }
+
+  .whatsapp-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 18px rgba(37,211,102,0.4);
+  }
+
+  .whatsapp-btn svg { width: 16px; height: 16px; fill: white; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 72px 0 0;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 70% 50%, rgba(212,130,10,0.08) 0%, transparent 70%),
+      linear-gradient(160deg, #111214 0%, #1e2024 40%, #16181a 100%);
+  }
+
+  /* Steel brushed lines */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(255,255,255,0.012) 3px,
+      rgba(255,255,255,0.012) 4px
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 span {
+    color: var(--amber);
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--amber) 0%, var(--amber-light) 100%);
+    color: var(--steel-dark);
+    padding: 0.85rem 2rem;
+    border: none;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(212,130,10,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(212,130,10,0.45);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 0.85rem 2rem;
+    border: 1px solid rgba(200,205,212,0.3);
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--amber);
+    color: var(--amber-light);
+  }
+
+  /* Machine illustration placeholder */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .machine-frame {
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 4/3;
+    background: linear-gradient(145deg, #2a2d31, #1e2024);
+    border: 1px solid rgba(212,130,10,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.04),
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      0 30px 60px rgba(0,0,0,0.5);
+  }
+
+  .machine-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      transparent 5px,
+      rgba(255,255,255,0.015) 5px,
+      rgba(255,255,255,0.015) 6px
+    );
+  }
+
+  .machine-placeholder {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .machine-icon {
+    font-size: 5rem;
+    display: block;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 20px rgba(212,130,10,0.4));
+  }
+
+  .machine-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--steel-shine);
+    text-transform: uppercase;
+  }
+
+  .hero-badge {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: linear-gradient(135deg, var(--amber), var(--amber-light));
+    color: var(--steel-dark);
+    padding: 0.4rem 0.8rem;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 3;
+  }
+
+  /* Glow dots */
+  .glow-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber-light);
+    box-shadow: 0 0 12px var(--amber);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  .glow-dot:nth-child(1) { top: 1.5rem; left: 1.5rem; animation-delay: 0s; }
+  .glow-dot:nth-child(2) { bottom: 1.5rem; left: 1.5rem; animation-delay: 0.8s; }
+  .glow-dot:nth-child(3) { bottom: 1.5rem; right: 1.5rem; animation-delay: 1.6s; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26,28,30,0.9);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(212,130,10,0.2);
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    z-index: 10;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--amber-light);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .section-tag::before,
+  .section-tag::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    letter-spacing: 2px;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── PRODUCTS ─── */
+  #productos {
+    padding: 7rem 2.5rem;
+    background: linear-gradient(180deg, var(--steel-dark) 0%, #1c1f22 100%);
+  }
+
+  .products-container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: linear-gradient(145deg, #252829, #1e2124);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212,130,10,0.35);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(212,130,10,0.15);
+  }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(145deg, #2a2e32, #22262a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 6px,
+      rgba(255,255,255,0.012) 6px,
+      rgba(255,255,255,0.012) 7px
+    );
+  }
+
+  .product-img-icon {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 0 15px rgba(212,130,10,0.3));
+    position: relative;
+    z-index: 1;
+  }
+
+  .product-tag {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    background: rgba(212,130,10,0.9);
+    color: var(--steel-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .product-info {
+    padding: 1.3rem;
+  }
+
+  .product-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+
+  .product-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--amber-light);
+    letter-spacing: 1px;
+  }
+
+  .product-price span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    vertical-align: middle;
+    margin-right: 2px;
+  }
+
+  .add-to-cart {
+    background: linear-gradient(135deg, var(--amber), var(--amber-light));
+    color: var(--steel-dark);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .add-to-cart:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 14px rgba(212,130,10,0.4);
+  }
+
+  .add-to-cart.added {
+    background: linear-gradient(135deg, #1da851, #25d366);
+    color: white;
+  }
+
+  /* ─── MANUAL SECTION ─── */
+  #manual {
+    padding: 5rem 2.5rem;
+    background: linear-gradient(135deg, #1c1f22 0%, var(--steel-dark) 100%);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .manual-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .manual-text h2 {
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+
+  .manual-text p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+
+  .manual-docs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .manual-doc {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: linear-gradient(135deg, #252829, #1e2124);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.25s;
+    group: true;
+  }
+
+  .manual-doc:hover {
+    border-color: rgba(212,130,10,0.4);
+    transform: translateX(4px);
+    box-shadow: 4px 0 0 var(--amber);
+  }
+
+  .doc-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(212,130,10,0.12);
+    border: 1px solid rgba(212,130,10,0.25);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .doc-info { flex: 1; }
+  .doc-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
+  }
+  .doc-meta {
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+  }
+
+  .doc-dl {
+    font-size: 1.2rem;
+    color: var(--amber);
+    transition: transform 0.2s;
+  }
+
+  .manual-doc:hover .doc-dl {
+    transform: translateY(2px);
+  }
+
+  /* ─── CONTACT ─── */
+  #contacto {
+    padding: 6rem 2.5rem;
+    background: var(--steel-dark);
+  }
+
+  .contact-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-inner h2 { margin-bottom: 1rem; }
+  .contact-inner p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .contact-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .whatsapp-big {
+    background: linear-gradient(135deg, #1da851, #25d366);
+    color: white;
+    padding: 1rem 2.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    transition: all 0.25s;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.3);
+  }
+
+  .whatsapp-big:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.45);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #111214;
+    border-top: 1px solid rgba(212,130,10,0.2);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+  }
+
+  .footer-logo span {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: var(--amber);
+    font-weight: 400;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+  }
+
+  /* ─── CART PANEL ─── */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .cart-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .cart-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 380px;
+    background: #1a1d20;
+    border-left: 1px solid rgba(212,130,10,0.25);
+    z-index: 201;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-panel.open {
+    transform: translateX(0);
+  }
+
+  .cart-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cart-header h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+  }
+
+  .cart-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+
+  .cart-close:hover { color: var(--amber); }
+
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .cart-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+  }
+
+  .cart-empty span { font-size: 3rem; display: block; margin-bottom: 1rem; }
+  .cart-empty p { font-size: 0.85rem; letter-spacing: 0.5px; }
+
+  .cart-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    align-items: center;
+  }
+
+  .cart-item-icon {
+    font-size: 2rem;
+    width: 48px;
+    text-align: center;
+  }
+
+  .cart-item-info { flex: 1; }
+
+  .cart-item-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+
+  .cart-item-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--amber-light);
+  }
+
+  .cart-item-remove {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s;
+  }
+
+  .cart-item-remove:hover { color: #e05050; }
+
+  .cart-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .cart-total-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .cart-total-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--amber-light);
+  }
+
+  .checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--amber), var(--amber-light));
+    color: var(--steel-dark);
+    border: none;
+    padding: 1rem;
+    border-radius: 3px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .checkout-btn:hover {
+    box-shadow: 0 6px 24px rgba(212,130,10,0.45);
+    transform: translateY(-1px);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow { animation: fadeInUp 0.6s ease 0.1s both; }
+  h1 { animation: fadeInUp 0.6s ease 0.25s both; }
+  .hero-desc { animation: fadeInUp 0.6s ease 0.4s both; }
+  .hero-ctas { animation: fadeInUp 0.6s ease 0.55s both; }
+  .hero-visual { animation: fadeInUp 0.7s ease 0.3s both; }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--steel-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--steel-light); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--amber); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+
+    /* Header */
+    header {
+      padding: 0 1rem;
+      height: 62px;
+    }
+
+    nav { display: none; }
+
+    .logo-text { font-size: 1.4rem; }
+    .logo-sub { font-size: 0.55rem; letter-spacing: 2.5px; }
+    .logo-icon { width: 34px; height: 34px; font-size: 12px; }
+
+    .whatsapp-btn span { display: none; }
+    .whatsapp-btn { padding: 0.5rem 0.7rem; }
+
+    .cart-btn span:not(.cart-count) { display: none; }
+    .cart-btn { padding: 0.45rem 0.65rem; }
+
+    /* Hero */
+    .hero { min-height: auto; padding-top: 62px; padding-bottom: 80px; }
+
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2.5rem 1.2rem 1.5rem;
+    }
+
+    /* Hide the machine frame on mobile, show only text */
+    .hero-visual { display: none; }
+
+    h1 { font-size: 3.2rem; margin-bottom: 1rem; }
+
+    .hero-desc { font-size: 0.9rem; margin-bottom: 1.8rem; }
+
+    .hero-ctas { flex-direction: column; gap: 0.7rem; }
+    .btn-primary, .btn-secondary { text-align: center; justify-content: center; width: 100%; }
+
+    .stats-bar {
+      position: relative;
+      padding: 1rem 1.2rem;
+      gap: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .stat {
+      padding: 0.8rem 0.5rem;
+      border-right: 1px solid rgba(212,130,10,0.15);
+      border-bottom: 1px solid rgba(212,130,10,0.15);
+    }
+
+    .stat:nth-child(2n) { border-right: none; }
+    .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
+
+    .stat-num { font-size: 1.5rem; }
+    .stat-label { font-size: 0.58rem; }
+
+    /* Products */
+    #productos { padding: 4rem 1.2rem; }
+
+    .products-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .product-name { font-size: 0.95rem; }
+    .product-desc { font-size: 0.72rem; }
+    .product-price { font-size: 1.1rem; }
+    .add-to-cart { font-size: 0.65rem; padding: 0.45rem 0.7rem; }
+
+    /* Manual */
+    #manual { padding: 4rem 1.2rem; }
+
+    .manual-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .manual-text h2 { font-size: 2.2rem; }
+
+    /* Contacto */
+    #contacto { padding: 4rem 1.2rem; }
+
+    .contact-ctas { flex-direction: column; align-items: center; }
+    .whatsapp-big { width: 100%; justify-content: center; }
+
+    /* Cart panel */
+    .cart-panel { width: 100%; }
+
+    /* Section headers */
+    h2 { font-size: 2.2rem; }
+  }
+
+  @media (max-width: 400px) {
+    .products-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 2.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header>
+  <a href="#" class="logo-wrap">
+    <img src="./logo.jpg" alt="CERVEMAQ" style="height:50px;width:auto;object-fit:contain;">
+  </a>
+
+  <nav>
+    <a href="#productos">Productos</a>
+    <a href="#manual">Manuales</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <div class="header-right">
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒
+      <span>Carrito</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</header>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Ingeniería Cervecera Argentina</div>
+      <h1>
+        EQUIPOS<br>
+        <span>PARA TU</span>
+        CERVECERÍA
+      </h1>
+      <p class="hero-desc">
+        Maquinaria de precisión diseñada y fabricada en acero inoxidable para la industria cervecera artesanal e industrial. Calidad que se siente en cada litro.
+      </p>
+      <div class="hero-ctas">
+        <a href="#productos" class="btn-primary">Ver productos</a>
+        <a href="#manual" class="btn-secondary">
+          📄 Descargar manual
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="machine-frame">
+        <div class="glow-dot"></div>
+        <div class="glow-dot"></div>
+        <div class="glow-dot"></div>
+        <div class="hero-badge">★ Nuevo modelo</div>
+        <img src="./llenadora.jpg" alt="Llenadora 4 Picos CERVEMAQ" style="width:100%;height:100%;object-fit:cover;border-radius:6px;position:relative;z-index:1;">
+      </div>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Picos de llenado</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">INOX</div>
+      <div class="stat-label">Acero inoxidable</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">AR</div>
+      <div class="stat-label">Fabricación local</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">★</div>
+      <div class="stat-label">Garantía incluida</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PRODUCTOS ═══════════════════ -->
+<section id="productos">
+  <div style="padding: 7rem 2.5rem; max-width: 1300px; margin: 0 auto;">
+    <div class="section-header">
+      <div class="section-tag">Catálogo</div>
+      <h2>NUESTROS EQUIPOS</h2>
+      <p class="section-desc">Diseñados para el cervecero exigente. Cada máquina, una solución de ingeniería.</p>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <div class="product-card">
+        <div class="product-img" style="padding:0;overflow:hidden;">
+          <div class="product-tag">Best seller</div>
+          <img src="./llenadora.jpg" alt="Llenadora 4 Picos" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Llenadora de 4 Picos</div>
+          <div class="product-desc">Llenado isobárico de botellas. Estructura en acero inoxidable 304. Ideal para producción artesanal e industrial.</div>
+          <div class="product-footer">
+            <div class="product-price"><span>$</span>CONSULTAR</div>
+            <button class="add-to-cart" onclick="addToCart('Llenadora 4 Picos', this)">+ Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-img-icon">🔧</div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Encorchadora Neumática</div>
+          <div class="product-desc">Encorchado preciso para botellas de 500ml y 1L. Sistema neumático de alta velocidad con soporte regulable.</div>
+          <div class="product-footer">
+            <div class="product-price"><span>$</span>CONSULTAR</div>
+            <button class="add-to-cart" onclick="addToCart('Encorchadora Neumática', this)">+ Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-tag">Nuevo</div>
+          <div class="product-img-icon">⚙️</div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Enfriador de Mosto Contracorriente</div>
+          <div class="product-desc">Enfriado rápido del mosto post-cocción. Acero inoxidable 316. Conexión estándar 1/2" con caudal regulable.</div>
+          <div class="product-footer">
+            <div class="product-price"><span>$</span>CONSULTAR</div>
+            <button class="add-to-cart" onclick="addToCart('Enfriador Contracorriente', this)">+ Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="padding:0;overflow:hidden;">
+          <img src="./Fermentador-100-Lts.jpg" alt="Fermentador 100L" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Fermentador Cónico 100L</div>
+          <div class="product-desc">Fermentador cilindro-cónico en AISI 304. Tapa hermética con airlock, manómetro, válvula de muestra y purga de levadura.</div>
+          <div class="product-footer">
+            <div class="product-price"><span>$</span>CONSULTAR</div>
+            <button class="add-to-cart" onclick="addToCart('Fermentador Cónico 100L', this)">+ Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="padding:0;overflow:hidden;">
+          <img src="./Filtro.jpg" alt="Filtro de cerveza" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="product-info">
+          <div class="product-name">Filtro para Cerveza</div>
+          <div class="product-desc">Filtración precisa para cerveza artesanal e industrial. Estructura en acero inoxidable. Fácil limpieza y mantenimiento.</div>
+          <div class="product-footer">
+            <div class="product-price"><span>$</span>CONSULTAR</div>
+            <button class="add-to-cart" onclick="addToCart('Filtro para Cerveza', this)">+ Carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img">
+          <div class="product-tag">Kit</div>
+          <div class="product-img-icon">📦</div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">Kit Inicio Cervecero</div>
+          <div class="product-desc">Todo para comenzar: llenadora 2 picos + encorchadora manual + enfriador básico. Soporte técnico incluido.</div>
+          <div class="product-footer">
+            <div class="product-price"><span>$</span>CONSULTAR</div>
+            <button class="add-to-cart" onclick="addToCart('Kit Inicio Cervecero', this)">+ Carrito</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MANUAL ═══════════════════ -->
+<section id="manual">
+  <div class="manual-inner">
+    <div class="manual-text">
+      <div class="section-tag" style="justify-content: flex-start;">
+        <span></span> Documentación
+      </div>
+      <h2>MANUALES<br>TÉCNICOS</h2>
+      <p>Descargá los manuales de instalación, uso y mantenimiento de nuestros equipos. Actualizados con cada nueva versión de la máquina.</p>
+    </div>
+    <div class="manual-docs">
+      <a href="https://www.cervemaq.com.ar/manual.pdf" class="manual-doc" download>
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Manual Llenadora 4 Picos</div>
+          <div class="doc-meta">PDF · Instalación, uso y mantenimiento</div>
+        </div>
+        <div class="doc-dl">⬇</div>
+      </a>
+      <a href="#" class="manual-doc" style="opacity:0.5; pointer-events:none;">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Manual Encorchadora</div>
+          <div class="doc-meta">Próximamente disponible</div>
+        </div>
+        <div class="doc-dl">⬇</div>
+      </a>
+      <a href="#" class="manual-doc" style="opacity:0.5; pointer-events:none;">
+        <div class="doc-icon">📄</div>
+        <div class="doc-info">
+          <div class="doc-name">Manual Fermentador Cónico</div>
+          <div class="doc-meta">Próximamente disponible</div>
+        </div>
+        <div class="doc-dl">⬇</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTACTO ═══════════════════ -->
+<section id="contacto">
+  <div class="contact-inner">
+    <div class="section-tag">Hablemos</div>
+    <h2>CONTACTO DIRECTO</h2>
+    <p>¿Tenés dudas sobre algún equipo, necesitás un presupuesto, o querés coordinar una visita? Escribinos directo por WhatsApp y te respondemos a la brevedad.</p>
+    <div class="contact-ctas">
+      <a href="https://wa.me/5493546525687" target="_blank" class="whatsapp-big">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Escribirnos por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="footer-logo">
+    CERVEMAQ
+    <span>— Ingeniería Cervecera —</span>
+  </div>
+  <div class="footer-copy">© 2025 CERVEMAQ · Todos los derechos reservados</div>
+</footer>
+
+<!-- ═══════════════════ CART PANEL ═══════════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>🛒 CARRITO</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <span>🍺</span>
+      <p>Tu carrito está vacío.<br>Agregá equipos para cotizar.</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">Productos seleccionados</span>
+      <span class="cart-total-price" id="cartTotal">0</span>
+    </div>
+    <button class="checkout-btn" onclick="sendToWhatsApp()">
+      💬 Consultar por WhatsApp
+    </button>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+
+  function toggleCart() {
+    document.getElementById('cartOverlay').classList.toggle('open');
+    document.getElementById('cartPanel').classList.toggle('open');
+  }
+
+  function addToCart(name, btn) {
+    cart.push(name);
+    updateCartUI();
+    btn.textContent = '✓ Agregado';
+    btn.classList.add('added');
+    setTimeout(() => {
+      btn.textContent = '+ Carrito';
+      btn.classList.remove('added');
+    }, 1800);
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    document.getElementById('cartCount').textContent = cart.length;
+    document.getElementById('cartTotal').textContent = cart.length;
+
+    const itemsEl = document.getElementById('cartItems');
+
+    if (cart.length === 0) {
+      itemsEl.innerHTML = `
+        <div class="cart-empty">
+          <span>🍺</span>
+          <p>Tu carrito está vacío.<br>Agregá equipos para cotizar.</p>
+        </div>`;
+      return;
+    }
+
+    const icons = {'Llenadora 4 Picos':'🍺','Encorchadora Neumática':'🔧','Enfriador Contracorriente':'⚙️','Fermentador Cónico 100L':'🏭','Filtro para Cerveza':'💧','Kit Inicio Cervecero':'📦'};
+
+    itemsEl.innerHTML = cart.map((item, i) => `
+      <div class="cart-item">
+        <div class="cart-item-icon">${icons[item] || '⚙️'}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item}</div>
+          <div class="cart-item-price">A COTIZAR</div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${i})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function sendToWhatsApp() {
+    if (cart.length === 0) return;
+    const list = cart.map(i => `• ${i}`).join('%0A');
+    const msg = `Hola! Me interesa cotizar los siguientes equipos CERVEMAQ:%0A%0A${list}%0A%0APor favor, ¿me pueden dar más información?`;
+    window.open(`https://wa.me/5493546525687?text=${msg}`, '_blank');
+  }
+</script>
+
+</body>
+</html>
